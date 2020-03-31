@@ -1,61 +1,72 @@
-const getUserChoice = userInput => {
-  
-  userInput = userInput.toLowerCase();
- 
-//making sure user gives valid input
-  if (userInput === 'rock' || userInput === 'paper' || userInput === 'scissors') {
+//getting user's input
+const getUserInput = userInput => {
+
+    userInput = userInput.toLowerCase();
+
+    if (userInput === 'paper' || userInput === 'rock' || userInput === 'scissors' || userInput === 'bomb') {
     return userInput;
-  } else {
-    console.log('ERROR: Invalid Input');
-  }
-}
-//defining the numbers to each answer
-const getComputerChoice = () => {
-  let num = Math.floor(Math.random() * 3);
-  
-  if (num === 0) {
-    return 'rock';
-  } else if (num === 1) {
-    return 'paper';
-  } else if (num === 2) {
-    return 'scissors';
-  }
-}
-//giving the rules
-const determineWinner = (userChoice, computerChoice) => {
-  if (userChoice === computerChoice) {
-    return 'Tie!';
-  }
-  if (userChoice === 'rock'){
-    if (computerChoice === 'paper'){
-      return 'You lost!';
     } else {
-      return 'You won!';
+    console.log('ERROR: Invalid input');
     }
-  }
-  if (userChoice === 'paper'){
-    if (computerChoice === 'scissors'){
-      return 'You lost!';
-    } else {
-      return 'You won!';
-    }
-  }
-  if (userChoice === 'scissors'){
-    if (computerChoice === 'rock'){
-      return 'You lost!';
-    } else {
-      return 'You won!';
-    }
-  }
 }
 
-const playGame = () => {
-  var userChoice = getUserChoice('paper');
-  var computerChoice = getComputerChoice ();
-  console.log(`You chose ${userChoice}.`);
-  console.log(`Computer chose ${computerChoice}.`);
-  console.log(determineWinner(userChoice, computerChoice));
+//getting computer's input
+const getComputerInput = () => {
+    let num = Math.floor(Math.random() * 3);
+
+    switch (num) {
+        case 0 :
+            return 'rock'
+            break;
+        case 1 :
+            return 'paper'
+            break;
+        case 2 :
+            return 'scissors'
+            break;
+    }
 }
+
+//comparing these inputs
+const compare = (userChoice, computerChoice) => {
+    if (userChoice === computerChoice) {
+        return 'Tie!'
+    }
+    if (userChoice === 'paper') {
+        if (computerChoice === 'scissors') {
+            return 'You lost!';
+        } else {
+            return 'You won!';
+        }
+    }
+    if (userChoice === 'rock') {
+        if (computerChoice === 'paper') {
+            return 'You lost!';
+        } else {
+            return 'You won!';
+        }
+    }
+    if (userChoice === 'scissors') {
+        if (computerChoice === 'rock') {
+            return 'You lost!';
+        } else {
+            return 'You won!';
+        }
+    }
+    if (userChoice === 'bomb') {
+        if (computerChoice === 'paper' || computerChoice === 'rock' || computerChoice === 'scissors') {
+            return 'You won!'
+        }
+    }
+}
+
+//running the game
+const playGame = () => {
+    var userChoice = getUserInput('bomb');
+    var computerChoice = getComputerInput();
+    console.log(`You chose ${userChoice}!`);
+    console.log(`Computer chose ${computerChoice}!`);
+    console.log(compare(userChoice, computerChoice));
+    }
 
 playGame();
-
